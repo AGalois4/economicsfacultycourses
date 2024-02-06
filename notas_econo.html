@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
 <!--
-	Álgebra Lineal
+	Econometría
 -->
 <html>
 	<head>
-		<title>Álgebra Lineal </title>
+		<title>Econometría </title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -68,25 +68,32 @@
 							<!-- Content -->
 								<section>
 									<header class="main">
-										<h1>Regresión Lineal</h1>
+										<h1>Notas de Econometría</h1>
 									</header>
 
 									
 
 
-									<hr class="major" />
-
-									<h2>Una variable explicativa: regresión simple</h2>
+<hr class="major" />
+<h2>Regresión lineal simple (una variable explicativa)</h2>
 									
-									<p>Vimos $\def\b{\beta}
+<p>Vimos $\def\b{\beta}
 \def\ie{\begin{eqnarray}}
 \def\fe{\end{eqnarray}}
 \def\ies{\begin{eqnarray*}}
 \def\fes{\end{eqnarray*}}
 \def\R{\mathbb{R}}$ en clase que $SEC(\b_0,\b_1)=\sum e_i^2=\sum (y_i-\b_0-\b_1x_i)^2$ es la suma de errores cuadráticos: la suma de las áreas de cuadrados construidos con las distancias de los puntos observados a una recta con ordenada inicialmente arbitraria con ordenada $\b_0$ y pendiente $\b_1$.</p>
-<p>Se dijo también en clase que ya que el conjunto de sumas de cuadrados $A=\{SEC(\b_0,\b_1)|\ \b_0,\b_1\in\R\}$, donde cada suma se obtiene para cada una de las infinitas rectas que se puden obtener al cambiar la ordenada $\b_0$ y pendiente $\b_1$, está acotado por abajo por 0 (ya que sumar áreas de cuadrados que son positivas o cero, siempre da un valor positivo o 0), entonces existen ciertos $\hat{\b}_0$ y $\hat{\b}_1$ que permiten obtener el valor mínimo de esa suma de cuadrados $SEC(\hat{\b}_0,\hat{\b}_1)$.</p>
-<p>Ahora, para obtener esos valores $\hat{\b}_0$ y $\hat{\b}_1$ es necesario realizar un proceso de óptimización. Este comienza encontrando las derivadas parciales de $SEC(\b_0,\b_1)$ con respecto de la ordenada y pendiente e igualando a 0 cada una:</p>
-<p>$\hspace{5cm}\ies
+
+<figure style="text-align: center;">
+<a href="#" class="image"><img src="distancias.png" alt="" width="350" height="300"/></a>$\hspace{2cm}$
+<a href="#" class="image"><img src="cuadrados.png" alt="" width="350" height="300"/></a>
+</figure>
+
+
+<p>Se dijo también en clase que ya que el conjunto de sumas de cuadrados $A=\{SEC(\b_0,\b_1)|\ \b_0,\b_1\in\R\}$, donde cada suma se obtiene para cada una de las infinitas rectas que se puden obtener al cambiar la ordenada $\b_0$ y pendiente $\b_1$, está acotado por abajo por 0 (ya que sumar áreas de cuadrados que son positivas o cero, siempre da un valor positivo o 0), entonces existen ciertos $\hat{\b}_0$ y $\hat{\b}_1$ que permiten obtener el valor mínimo de esa suma de cuadrados $SEC(\hat{\b}_0,\hat{\b}_1)$.$\\$
+
+Ahora, para obtener esos valores $\hat{\b}_0$ y $\hat{\b}_1$ es necesario realizar un proceso de óptimización. Este comienza encontrando las derivadas parciales de $SEC(\b_0,\b_1)$ con respecto de la ordenada y pendiente e igualando a 0 cada una:
+$$\hspace{5cm}\ies
 0&amp;=&amp;\frac{\partial E(\b_0,\b_1 )}{\partial \b_0}
 = 2\sum(y_i-\hat{\b}_0 -\hat{\b}_1 x_i )(-1)
 =
@@ -97,15 +104,15 @@
 =
 -2\sum y_ix_i+2\hat{\b}_0\sum x_i +2\hat{\b}_1\sum x^2_i
 \fes
-$</p>
-<p>posteriormente se reacomodan los términos, dividiendo además las ecuaciones entre 2, obtiendo así el sistema de ecuaciones</p>
-<p>$\ies
+$$
+posteriormente se reacomodan los términos, dividiendo además las ecuaciones entre 2, obtiendo así el sistema de ecuaciones
+$$\ies
 n\hat{\b}_0 +\hat{\b}_1\sum x_i&amp;=&amp;\sum y_i\\
 \\
 \hat{\b}_0\sum x_i +\hat{\b}_1\sum x^2_i&amp;=&amp;\sum y_ix_i
-\fes$</p>
-<p>y que en notación compacta (matricial) resulta</p>
-<p>$\ies
+\fes$$
+y que en notación compacta (matricial) resulta
+$$\ies
 \begin{pmatrix}
  n&amp;\sum x_i\\
  \sum x_i&amp;\sum x^2_i
@@ -116,16 +123,16 @@ n\hat{\b}_0 +\hat{\b}_1\sum x_i&amp;=&amp;\sum y_i\\
 \sum y_i\\
 \sum y_ix_i
 \end{pmatrix}
-\fes$</p>
-<p>Llamando a la matriz en esta expresión como $A$, es fácil descubir que su inversa es</p>
-<p>$\hspace{5cm}\ies
+\fes$$
+Llamando a la matriz en esta expresión como $A$, es fácil descubir que su inversa es
+$$\ies
 A^{-1}=\frac{1}{\det{A}}\begin{pmatrix}
  \sum x^2_i&amp;-\sum x_i\\
  -\sum x_i&amp;n
 \end{pmatrix}
-\fes$</p>
-<p>donde el determinante esta dado por</p>
-<p>$\ies
+\fes$$
+donde el determinante esta dado por
+$$\ies
 \det A&amp;=&amp;n\sum x_i^2-\sum x_i\sum x_i=n\sum x_i^2-n^2\bar{x}^2
 =n\left(\sum x_i^2-n\bar{x}^2\right)=n\sum\left( x_i^2-\bar{x}^2\right)\\
 &amp;=&amp;
@@ -136,9 +143,9 @@ n\sum\left( x_i^2+(2x_i\bar{x}-2x_i\bar{x})\bar{x}^2-2\bar{x}^2\right)\\
 n\sum\left( (x_i-\bar{x})^2+2x_i\bar{x}-2\bar{x}^2\right)=n\left(\sum (x_i-\bar{x})^2+2\bar{x}\sum x_i-2n\bar{x}^2\right)\\
 &amp;=&amp;
 n\left(\sum (x_i-\bar{x})^2+2n\bar{x}^2-2n\bar{x}^2\right)=n\left(\sum (x_i-\bar{x})^2\right)
-\fes$</p>
-<p>Por consiguiente, resolviendo el sistema matricial empleando la matriz $A^{-1}$, podemos recuperar los betas estimados</p>
-<p>$\hspace{5cm}\ies
+\fes$$
+Por consiguiente, resolviendo el sistema matricial empleando la matriz $A^{-1}$, podemos recuperar los betas estimados
+$$\ies
 \begin{pmatrix}
 \hat{\b}_0\\
 \hat{\b}_1
@@ -157,9 +164,9 @@ n\left(\sum (x_i-\bar{x})^2+2n\bar{x}^2-2n\bar{x}^2\right)=n\left(\sum (x_i-\bar
  \\
  \dfrac{-n\bar{x}\bar{y}+\sum y_ix_i}{\sum (x_i-\bar{x})^2}
 \end{pmatrix}
-\fes$</p>
-<p>es más, ya que $\textbf{(i)}$ el numerador de $\hat{\b}_1$ se puede escribir como</p>
-<p>$\ies
+\fes$$
+es más, ya que $\textbf{(i)}$ el numerador de $\hat{\b}_1$ se puede escribir como
+$$\ies
 -n\bar{x}\bar{y}+\sum y_ix_i&amp;=&amp;
 \sum \left(y_ix_i-\bar{x}\bar{y} \right)
 =
@@ -171,9 +178,9 @@ n\left(\sum (x_i-\bar{x})^2+2n\bar{x}^2-2n\bar{x}^2\right)=n\left(\sum (x_i-\bar
 =
 \sum y_i(x_i-\bar{x})+n\bar{x}\bar{y}-n\bar{x}\bar{y}\\
 &amp;=&amp;\sum y_i(x_i-\bar{x})
-\fes$</p>
-<p>y que $\textbf{(ii)}$ el númerador de $\hat{\b}_0$ se puede ver de la siguiente manera</p>
-<p>$\ies
+\fes$$
+y que $\textbf{(ii)}$ el númerador de $\hat{\b}_0$ se puede ver de la siguiente manera
+$$\ies
 \bar{y}\sum x^2_i-\bar{x}\sum y_ix_i&amp;=&amp;
 \bar{y}\sum x^2_i-\bar{x}\sum (y_ix_i+(-y_i\bar{x}+y_i\bar{x}) )
 =
@@ -186,9 +193,9 @@ n\left(\sum (x_i-\bar{x})^2+2n\bar{x}^2-2n\bar{x}^2\right)=n\left(\sum (x_i-\bar
 &amp;=&amp;
 \bar{y}\sum (x_i-\bar{x})^2-n\bar{x}^2\bar{y}+2n\bar{x}^2\bar{y}-\bar{x}\sum y_i(x_i-\bar{x})-n\bar{x}^2\bar{y}\\
 &amp;=&amp;\bar{y}\sum (x_i-\bar{x})^2-\bar{x}\sum y_i(x_i-\bar{x})
-\fes$</p>
-<p>entonces los betas los podemos ver como</p>
-<p>$\ies
+\fes$$
+entonces los betas los podemos ver como
+$$\ies
 \begin{pmatrix}
 \hat{\b}_0\\
 \hat{\b}_1
@@ -204,9 +211,9 @@ n\left(\sum (x_i-\bar{x})^2+2n\bar{x}^2-2n\bar{x}^2\right)=n\left(\sum (x_i-\bar
  \\
  \dfrac{\sum y_i(x_i-\bar{x})}{\sum (x_i-\bar{x})^2}
 \end{pmatrix}
-\fes$</p>
-<p>Así mismo, ya que $\hat{\b}_0=\bar{y}-\bar{x}\hat{\b}_1$ y que $V(\hat{\b_1})=\frac{\sigma^2}{S_{xx}}$ con $S_{xx}=\sum (x_i-\bar{x})^2$; $V(\bar{y})=\frac{\sigma^2}{n}$; $Cov(\bar{y},-\bar{x}\hat{\b}_1)=0$;  $V(x+y)=V(x)+V(y)-Cov(x,y)$; y que $V(ax)=a^2V(x)$ con $a\in\R$, entonces</p>
-<p>$\ies
+\fes$$
+Así mismo, ya que $\hat{\b}_0=\bar{y}-\bar{x}\hat{\b}_1$ y que $V(\hat{\b_1})=\frac{\sigma^2}{S_{xx}}$ con $S_{xx}=\sum (x_i-\bar{x})^2$; $V(\bar{y})=\frac{\sigma^2}{n}$; $Cov(\bar{y},-\bar{x}\hat{\b}_1)=0$;  $V(x+y)=V(x)+V(y)-Cov(x,y)$; y que $V(ax)=a^2V(x)$ con $a\in\R$, entonces
+$$\ies
 V(\hat{\b}_0)&amp;=&amp;V(\bar{y}-\bar{x}\hat{\b}_1)
 =
 V(\bar{y})+V(-\bar{x}\hat{\b}_1)-Cov(\bar{y},-\bar{x}\hat{\b}_1)
@@ -215,7 +222,10 @@ V(\bar{y})+V(-\bar{x}\hat{\b}_1)-Cov(\bar{y},-\bar{x}\hat{\b}_1)
 =
 \frac{\sigma^2}{n}+\bar{x}^2\frac{\sigma^2}{S_{xx}}=
 \sigma^2\left(\frac{1}{n}+\frac{\bar{x}^2}{S_{xx}}\right)
-\fes$</p>
+\fes$$
+
+Todo este proceso de optimización, de busqueda de una mínima suma de cuadrados, no es único. Existen otros dos procesos que pueden hacer lo mismo: uno con solo elementos de álgebra lineal que es global y general, y otro que optimiza una función llamada de verosimilitud (pero en este caso se busca un máximo). Pero esto lo veremos en clase y en otras entradas de esta serie de escritos.
+</p>
 									
 									
 									
@@ -223,9 +233,20 @@ V(\bar{y})+V(-\bar{x}\hat{\b}_1)-Cov(\bar{y},-\bar{x}\hat{\b}_1)
 
 									<hr class="major" />
 
-									<h2>Lorem aliquam bibendum</h2>
-									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Curabitur sapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit.</p>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus, vel sed vehicula.</p>
+									<h2>Odds Ratio y probalidad ¿son lo mismo?</h2>
+<p style="text-align: justify;">La diferencia entre la odds ratio (razón de momios) y la probabilidad reside en la manera en que expresan y cuantifican la relación entre eventos en el contexto de la estadística y la probabilidad.$\\$
+
+
+La odds ratio (Razón de Momios) es una medida que describe la relación entre la probabilidad de que ocurra un evento y la probabilidad de que no ocurra el mismo evento. Se utiliza comúnmente en estudios de caso-control y en contextos donde se compara la proporción de dos grupos en términos de las odds (razones de momios) de un evento. La odds ratio se calcula como el cociente de las odds (probabilidad de éxito sobre probabilidad de fracaso) en dos grupos diferentes.
+$\\$
+
+Por ejemplo, en un estudio médico, la odds ratio podría ser utilizada para comparar la probabilidad de que un grupo de pacientes desarrolle una condición médica en comparación con otro grupo.$\\$
+
+La probabilidad, por otro lado, es una medida cuantitativa que indica la posibilidad de que ocurra un evento en relación con el espacio muestral total de eventos posibles. Se expresa típicamente como un número entre 0 y 1, donde 0 significa que el evento es imposible y 1 significa que el evento es seguro.$\\$
+
+En términos simples, la probabilidad representa la frecuencia relativa de un evento en un conjunto de eventos posibles. Por ejemplo, la probabilidad de obtener un número impar al lanzar un dado justo de seis caras es de 3/6 o 1/2.$\\$
+
+</p>
 
 								</section>
 
@@ -249,16 +270,18 @@ V(\bar{y})+V(-\bar{x}\hat{\b}_1)-Cov(\bar{y},-\bar{x}\hat{\b}_1)
 										<h2>Menu</h2>
 									</header>
 									<ul>
-										<li><a href="index.html">INICIO</a></li>
-										<li><a href="generic.html">Notas Econometría</a></li>
-										<li><a href="elements.html">Álgebra Lineal</a></li>
+									<li><a href="index.html">INICIO</a></li>
+<li><a href="notas_econo.html">Econometría</a></li>	
+ <li><a href="alg_lin.html">Álgebra Lineal</a></li>
+<li><a href="generi.html">Física Estadística</a></li>
+										
 										<li>
 											<span class="opener">Submenu</span>
 											<ul>
-												<li><a href="#">Lorem Dolor</a></li>
-												<li><a href="#">Ipsum Adipiscing</a></li>
-												<li><a href="#">Tempus Magna</a></li>
-												<li><a href="#">Feugiat Veroeros</a></li>
+												<li><a href="#">L</a></li>
+												<li><a href="#">I</a></li>
+												<li><a href="#">T</a></li>
+												<li><a href="#">F</a></li>
 											</ul>
 										</li>
 									</ul>
