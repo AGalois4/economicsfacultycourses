@@ -38,8 +38,11 @@
 											<h1>CURSOS UNAM<br />
 											</h1>
 <p>Aquí subiré información para los diversos cursos que imparto en la Universidad Nacional Autónoma de México.</p>
+    
 										</header>
-										<p>   Plus plus</p>
+										<p id="visitas">Visitas recientes <span id="contador">0</span></p>
+										<!--<button onclick="resetearContador()">Resetear Contador</button>-->
+										
 										
 									</div>
 									<span class="image object">
@@ -187,6 +190,31 @@ instrucciones para su resolución y entrega posterior al examen.</p>
 			</div>
 
 		<!-- Scripts -->
+		    
+		    <script>
+        // Incrementar el contador de visitas
+        let contador = localStorage.getItem('visitas');
+        if (contador === null) {
+            contador = 0;
+        } else {
+            contador = parseInt(contador);
+        }
+        contador++;
+        localStorage.setItem('visitas', contador);
+
+        // Mostrar el contador en la página
+        document.getElementById('contador').textContent = contador;
+
+        // Función para resetear el contador
+        function resetearContador() {
+            localStorage.removeItem('visitas');
+            contador = 0;
+            document.getElementById('contador').textContent = contador;
+            alert('Contador reseteado correctamente.');
+        }
+    </script>
+		    
+		    
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>

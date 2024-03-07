@@ -102,7 +102,46 @@ E_T=np.dot(E,T)
 plt.plot(E[:,0],E[:,1],color="blue") # Gráfica de E
 plt.plot(E_T[:,0],E_T[:,1],color="red") # Gráfica de E trasladada
 
+###############################################################################
 
+import matplotlib.pyplot as plt
+import requests
+from io import BytesIO
+from PIL import Image
+
+# UBICACIÓN EN INTERNET (O COMPUTADORA) DE LA IMAGEN
+ubicacion = "https://media.admagazine.com/photos/618a664c259e475000cceaf2/3:2/w_6192,h_4128,c_limit/72350.jpg"
+img=requests.get(ubicacion)
+with open('imagen.jpg', 'wb') as f:
+        f.write(img.content)
+
+imagen = plt.imread('imagen.jpg')
+plt.imshow(imagen)
+
+# Ángulo de rotación en radianes
+theta = np.pi / 3
+
+ancho,alto,_=imagen.shape
+
+
+
+# Aplicar la rotación multiplicando la imagen por la matriz de rotación 3D
+imagen_rotada = np.dot(imagen, R_3D)
+
+# Mostrar la imagen original y la imagen rotada
+plt.figure(figsize=(10, 5))
+
+plt.subplot(1, 2, 1)
+plt.imshow(imagen)
+plt.title('Imagen Original')
+plt.axis('off')
+
+plt.subplot(1, 2, 2)
+plt.imshow(imagen_rotada)
+plt.title('Imagen Rotada')
+plt.axis('off')
+
+plt.show()
 
 
 
