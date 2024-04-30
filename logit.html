@@ -391,7 +391,11 @@ para <span class="math inline">\(j=0,1,\dots,m\)</span> al derivar <span class="
 \sum_{i=1}^n\left(y_ix_{ij}-x_{ij}\frac{\exp(\underline{x}_i^T\underline{\beta})}{1+\exp(\underline{x}_i^T\underline{\beta})}
 \right)
 =
-\sum_{i=1}^nx_{ij}\left(y_i-\pi_i\right)=\underline{x}_j^T(\underline{y}-\underline{\pi})
+\sum_{i=1}^nx_{ij}\left(y_i-\pi_i\right)
+=
+\sum_{i=1}^n\left(y_i-\pi_i\right)x_{ij}
+=
+\underline{x}_j^T(\underline{y}-\underline{\pi})
 \end{eqnarray}\]</span> donde en la última igualdad los elementos <span class="math inline">\(\underline{y}\)</span>, <span class="math inline">\(\underline{\pi}\)</span> y <span class="math inline">\(\underline{x}_j\)</span> están dados como, <span class="math display">\[\begin{eqnarray}
 \underline{y}=\begin{pmatrix}y_1\\y_2\\\vdots\\y_n\end{pmatrix};\hspace{2em}
 \underline{\pi}=\begin{pmatrix}\pi_1\\ \pi_2\\ \vdots\\
@@ -406,14 +410,16 @@ x_{nj}\end{pmatrix}
 <p>La expresión <span class="math inline">\(\eqref{4}\)</span> es un
 sistema de <span class="math inline">\(m+1\)</span> ecuaciones no
 lineales homogéneas (dependientes de <span class="math inline">\(\underline{\beta}\)</span> por <span class="math inline">\(\underline{\pi}\)</span>), es decir, <span class="math display">\[\begin{eqnarray*}
-\underline{x}^T_0(\underline{y}-\underline{\pi})&amp;=&amp;0\\
-\underline{x}^T_1(\underline{y}-\underline{\pi})&amp;=&amp;0\\
+\underline{x}_0^T(\underline{y}-\underline{\pi})&amp;=&amp;0\\
+\underline{x}_1^T(\underline{y}-\underline{\pi})&amp;=&amp;0\\
 &amp;\vdots&amp;\\
-\underline{x}^T_m(\underline{y}-\underline{\pi})&amp;=&amp;0
+\underline{x}_m^T(\underline{y}-\underline{\pi})&amp;=&amp;0
 \end{eqnarray*}\]</span> o en términos matriciales, tomando <span class="math inline">\(X=\begin{pmatrix}
 \underline{x}_0&amp;\underline{x}_1&amp;\cdots&amp;\underline{x}_m\end{pmatrix}\)</span>,
 se puede ver como <span class="math display">\[\begin{eqnarray}\tag{5}\label{5}
-X^T(\underline{y}-\underline{\pi})=\underline{0}
+\ell&#39;(\underline{b})=\begin{pmatrix}\partial_{\beta_0}\ell\\
+\vdots\\
+\partial_{\beta_m}\ell\end{pmatrix}=X^T(\underline{y}-\underline{\pi})=\underline{0}
 \end{eqnarray}\]</span></p>
 <p>Debido a la no linealidad de <span class="math inline">\(\eqref{5}\)</span>, para obtener <span class="math inline">\(\underline{\beta}\)</span> que satisfaga la
 igualdad a 0 (recuerden que <span class="math inline">\(\underline{\pi}\)</span> depende de <span class="math inline">\(\underline{\beta}\)</span>), se requiere aplicar
@@ -421,56 +427,56 @@ algún método númerico. En nuestro caso vamos a revisar el método de
 Newton-Raphson <strong>NR</strong> y el Puntaje de Fisher
 <strong>PF</strong>. Para aplicar cualquiera de ellos debemos tener la
 derivada de la expresión izquierda en <span class="math inline">\(\eqref{5}\)</span>. Por consiguiente, <span class="math display">\[\begin{eqnarray*}
-\partial_{\beta_i}X^T(\underline{y}-\underline{\pi})&amp;=&amp;-X^T\partial_{\beta_i}\underline{\pi}
+\partial_{\beta_j}X^T(\underline{y}-\underline{\pi})&amp;=&amp;-X^T\partial_{\beta_j}\underline{\pi}
 =
--X^T\partial_{\beta_i}\begin{pmatrix}\frac{\exp(\underline{x}_1^T\underline{\beta})}{1+\exp(\underline{x}_1^T\underline{\beta})}\\
+-X^T\partial_{\beta_j}\begin{pmatrix}\frac{\exp(\underline{x}_1^T\underline{\beta})}{1+\exp(\underline{x}_1^T\underline{\beta})}\\
 \frac{\exp(\underline{x}_2^T\underline{\beta})}{1+\exp(\underline{x}_2^T\underline{\beta})}\\
 \vdots\\
 \frac{\exp(\underline{x}_n^T\underline{\beta})}{1+\exp(\underline{x}_n^T\underline{\beta})}\end{pmatrix}
 =
--X^T\begin{pmatrix}\partial_{\beta_i}\frac{\exp(\underline{x}_1^T\underline{\beta})}{1+\exp(\underline{x}_1^T\underline{\beta})}\\
-\partial_{\beta_i}\frac{\exp(\underline{x}_2^T\underline{\beta})}{1+\exp(\underline{x}_2^T\underline{\beta})}\\
+-X^T\begin{pmatrix}\partial_{\beta_j}\frac{\exp(\underline{x}_1^T\underline{\beta})}{1+\exp(\underline{x}_1^T\underline{\beta})}\\
+\partial_{\beta_j}\frac{\exp(\underline{x}_2^T\underline{\beta})}{1+\exp(\underline{x}_2^T\underline{\beta})}\\
 \vdots\\
-\partial_{\beta_i}\frac{\exp(\underline{x}_n^T\underline{\beta})}{1+\exp(\underline{x}_n^T\underline{\beta})}\end{pmatrix}
+\partial_{\beta_j}\frac{\exp(\underline{x}_n^T\underline{\beta})}{1+\exp(\underline{x}_n^T\underline{\beta})}\end{pmatrix}
 =
 -X^T\begin{pmatrix}
-\frac{x_{i1}\exp(\underline{x}_1^T\underline{\beta})}{1+\exp(\underline{x}_1^T\underline{\beta})}
+\frac{x_{1j}\exp(\underline{x}_1^T\underline{\beta})}{1+\exp(\underline{x}_1^T\underline{\beta})}
 -
-\frac{x_{i1}\exp(\underline{x}_1^T\underline{\beta})\exp(\underline{x}_1^T\underline{\beta})}{(1+\exp(\underline{x}_1^T\underline{\beta}))^2}
+\frac{x_{1j}\exp(\underline{x}_1^T\underline{\beta})\exp(\underline{x}_1^T\underline{\beta})}{(1+\exp(\underline{x}_1^T\underline{\beta}))^2}
 \\
-\frac{x_{i2}\exp(\underline{x}_2^T\underline{\beta})}{1+\exp(\underline{x}_2^T\underline{\beta})}
+\frac{x_{2j}\exp(\underline{x}_2^T\underline{\beta})}{1+\exp(\underline{x}_2^T\underline{\beta})}
 -
-\frac{x_{i2}\exp(\underline{x}_2^T\underline{\beta})\exp(\underline{x}_2^T\underline{\beta})}{(1+\exp(\underline{x}_2^T\underline{\beta}))^2}
+\frac{x_{2j}\exp(\underline{x}_2^T\underline{\beta})\exp(\underline{x}_2^T\underline{\beta})}{(1+\exp(\underline{x}_2^T\underline{\beta}))^2}
 \\
 \vdots
 \\
-\frac{x_{in}\exp(\underline{x}_n^T\underline{\beta})}{1+\exp(\underline{x}_n^T\underline{\beta})}
+\frac{x_{nj}\exp(\underline{x}_n^T\underline{\beta})}{1+\exp(\underline{x}_n^T\underline{\beta})}
 -
-\frac{x_{in}\exp(\underline{x}_n^T\underline{\beta})\exp(\underline{x}_n^T\underline{\beta})}{(1+\exp(\underline{x}_n^T\underline{\beta}))^2}
+\frac{x_{nj}\exp(\underline{x}_n^T\underline{\beta})\exp(\underline{x}_n^T\underline{\beta})}{(1+\exp(\underline{x}_n^T\underline{\beta}))^2}
 \end{pmatrix}\\
 &amp;=&amp;
 -X^T\begin{pmatrix}
-x_{i1}\pi_1
+x_{1j}\pi_1
 -
-x_{i1}\pi_1^2
+x_{1j}\pi_1^2
 \\
-x_{i2}\pi_2
+x_{2j}\pi_2
 -
-x_{i2}\pi_2^2\\
+x_{2j}\pi_2^2\\
 \vdots
 \\
-x_{in}\pi_n
+x_{nj}\pi_n
 -
-x_{in}\pi_n^2\end{pmatrix}
+x_{nj}\pi_n^2\end{pmatrix}
 =
 -X^T\begin{pmatrix}
-x_{i1}\pi_1(1-\pi_1)
+x_{1j}\pi_1(1-\pi_1)
 \\
-x_{i2}\pi_2(1-\pi_2)
+x_{2j}\pi_2(1-\pi_2)
 \\
 \vdots
 \\
-x_{in}\pi_n(1-\pi_n)
+x_{nj}\pi_n(1-\pi_n)
 \end{pmatrix}\\
 &amp;=&amp;
 -X^T\begin{pmatrix}
@@ -480,25 +486,107 @@ x_{in}\pi_n(1-\pi_n)
 &amp;&amp;&amp;&amp;\pi_n(1-\pi_n)
 \end{pmatrix}
 \begin{pmatrix}
-x_{i1}\\
-x_{i2}\\
+x_{1j}\\
+x_{2j}\\
 \vdots\\
-x_{in}
+x_{nj}
 \end{pmatrix}
 =-X^T
 \text{diag}(\pi_i(1-\pi_i))
-\begin{pmatrix}
-x_{i1}\\
-x_{i2}\\
-\vdots\\
-x_{in}
-\end{pmatrix}
+\underline{x}_j
 \end{eqnarray*}\]</span></p>
 <p>entonces definiendo la matriz <span class="math inline">\(W=\text{diag}(\pi_i(1-\pi_i))\)</span>, se sigue
 que para i=1</p>
 <p><span class="math display">\[\begin{eqnarray}\tag{6}\label{6}
-\partial_{\beta_i}X^T(\underline{y}-\underline{\pi})=X^TWX
+\ell&#39;&#39;(\underline{\beta})=\begin{pmatrix}\partial_{\beta_1}X^T(\underline{y}-\underline{\pi})&amp;\cdots&amp;\partial_{\beta_m}X^T(\underline{y}-\underline{\pi})\end{pmatrix}=-X^TWX
 \end{eqnarray}\]</span></p>
+<div id="puntaje-de-fisher" class="section level2">
+<h2>Puntaje de Fisher</h2>
+<p>Para emplear el puntaje de Fisher se requiere emplear la siguiente
+expresión</p>
+<p><span class="math display">\[\begin{eqnarray*}
+\underline{\beta}_{i+1}=\underline{\beta}_i+I(\underline{\beta}_{i})^{-1}\ell&#39;(\underline{\beta}_i)
+\end{eqnarray*}\]</span> donde <span class="math inline">\(\ell&#39;\)</span> está definida en <span class="math inline">\(\eqref{5}\)</span> e <span class="math inline">\(I\)</span> es la matriz de información de Fisher,
+la cual se define con ayuda de <span class="math inline">\(\eqref{6}\)</span> de la siguiente manera <span class="math display">\[\begin{eqnarray}
+I(\underline{\beta})=-E(\ell&#39;&#39;(\underline{\beta}))=-E(-X^TWX)=X^TWX
+\end{eqnarray}\]</span> donde <span class="math inline">\(E\)</span> es
+la esperanza matemática. Además, si se recuerda que <span class="math inline">\(\underline{\pi}\)</span> depende de <span class="math inline">\(\underline{\beta_i}\)</span> debido a <span class="math inline">\(\eqref{2}\)</span>, como se ve a continuación
+<span class="math display">\[\begin{eqnarray*}
+\underline{\pi}=
+\begin{pmatrix}
+\pi_1(\underline{\beta})\\
+\vdots\\
+\pi_n(\underline{\beta})
+\end{pmatrix}=
+\begin{pmatrix}\frac{\exp(\underline{x}_1^T\underline{\beta})}{1+\exp(\underline{x}_1^T\underline{\beta})}\\
+\vdots\\
+\frac{\exp(\underline{x}_n^T\underline{\beta})}{1+\exp(\underline{x}_n^T\underline{\beta})}\end{pmatrix}
+\end{eqnarray*}\]</span> Entonces, al sustituir todo lo mencionado
+anteriormente en la expresión para el puntaje de Fisher, se obtiene una
+ecuación que se puede calcular de forma iterativa, la cual es,</p>
+<p><span class="math display">\[\begin{eqnarray*}
+\underline{\beta}_{i+1}=\underline{\beta}_i+\left(X^TWX\right)^{-1}
+X^T(\underline{y}-\underline{\pi})
+\end{eqnarray*}\]</span></p>
+<p>Los resultados de <span class="math inline">\(\underline{\beta}\)</span> para esta expresión se
+comparan con aquellos otorgados por la función <span class="math inline">\(glm\)</span> en un modelo simulado que se
+encuentra el código que se encuentra inmediadamente debajo de esta
+parrafo. En él se construye un modelo que simulado explica la
+<strong>enfermedad</strong> mediante <strong>atención temprana</strong>
+y <strong>tratamiento</strong> con un modelo logit cuyos betas son <span class="math inline">\(\underline{\beta}=(1 3.14 y 2.32)\)</span> y donde
+se agrega un choque aleatorio. Note que los valores datos con <span class="math inline">\(glm\)</span> y con la expresión del puntaje de
+Fisher que construimos son iguales, y ambas son muy parecidos a los
+valores otorgados en la simulación.</p>
+<pre class="r"><code># Datos simulamos
+set.seed(123)
+n &lt;- 1000 # tamaño de muestra
+beta0 &lt;- 1
+beta1 &lt;- 3.14
+beta2 &lt;- 2.32
+atencion_temp &lt;- rpois(n,.3)
+tratamiento &lt;- sample(round(rnorm(50),2), size = n, replace = TRUE)
+prob &lt;- plogis(beta0 + beta1*atencion_temp + beta2*tratamiento) # probabilidad éxito
+enfermedad  &lt;- rbinom(n, 1, prob)
+
+# Modelo logit automático (glm)
+model &lt;- glm(enfermedad ~ atencion_temp + tratamiento, family = binomial(&quot;logit&quot;))
+t(t(model$coefficients))</code></pre>
+<pre><code>##                   [,1]
+## (Intercept)   1.242838
+## atencion_temp 3.201019
+## tratamiento   2.453492</code></pre>
+<pre class="r"><code># Modelo logit manual (puntaje de Fisher)
+
+fisher_scoring&lt;-function(x,y,b.init,tol=1e-8){
+  p &lt;- function(eta) return(exp(eta)/(1 + exp(eta)))
+  change &lt;- Inf
+  b.old &lt;- b.init
+  while(change &gt; tol) {
+    eta &lt;- x %*% b.old  # linear predictor
+    
+    w&lt;-diag(as.vector(p(eta)*(1-p(eta))),nrow=nrow(x),ncol=nrow(x)) 
+    
+    b.new&lt;-b.old + solve(t(x)%*%w%*%x) %*% t(x)%*%(y-p(eta))
+    
+    change &lt;- sqrt(sum((b.new - b.old)^2))
+    # print(b.new)
+    b.old &lt;- b.new
+  }
+  b.new
+}
+
+X &lt;- matrix(c(rep(1,n),atencion_temp,tratamiento), nrow=n,ncol=3)
+Y &lt;- enfermedad
+
+betas&lt;-fisher_scoring(X,Y,c(1,2,3))
+
+rownames(betas)&lt;-names(model$coefficients)
+print(betas)</code></pre>
+<pre><code>##                   [,1]
+## (Intercept)   1.242838
+## atencion_temp 3.201019
+## tratamiento   2.453492</code></pre>
+</div>
 <div id="método-newton-raphson" class="section level2">
 <h2>Método Newton-Raphson</h2>
 <p>Si tenemos una ecuación <span class="math inline">\(f(x)=0\)</span>
@@ -621,70 +709,6 @@ if (all(!is.na(root))) {
 }</code></pre>
 <pre><code>## Raíz encontrada: 0.1428824 2.231498</code></pre>
 </div>
-</div>
-<div id="método-del-puntaje-de-fisher" class="section level2">
-<h2>Método del Puntaje de Fisher</h2>
-<pre class="r"><code># Datos simulamos
-set.seed(123)
-n &lt;- 1000 # tamaño de muestra
-beta0 &lt;- 1
-beta1 &lt;- 3.14
-beta2 &lt;- 2.32
-atencion_temp &lt;- rpois(n,.3)
-tratamiento &lt;- sample(round(rnorm(50),2), size = n, replace = TRUE)
-prob &lt;- plogis(beta0 + beta1*atencion_temp + beta2*tratamiento) # probabilidad éxito
-enfermedad  &lt;- rbinom(n, 1, prob)
-
-# Modelo logit automático (glm)
-model &lt;- glm(enfermedad ~ atencion_temp + tratamiento, family = binomial(&quot;logit&quot;))
-summary(model)</code></pre>
-<pre><code>## 
-## Call:
-## glm(formula = enfermedad ~ atencion_temp + tratamiento, family = binomial(&quot;logit&quot;))
-## 
-## Coefficients:
-##               Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)     1.2428     0.1186  10.480   &lt;2e-16 ***
-## atencion_temp   3.2010     0.3734   8.573   &lt;2e-16 ***
-## tratamiento     2.4535     0.1786  13.737   &lt;2e-16 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## (Dispersion parameter for binomial family taken to be 1)
-## 
-##     Null deviance: 1141.91  on 999  degrees of freedom
-## Residual deviance:  664.68  on 997  degrees of freedom
-## AIC: 670.68
-## 
-## Number of Fisher Scoring iterations: 6</code></pre>
-<pre class="r"><code># Modelo logit manual (puntaje de Fisher)
-
-fisher_scoring&lt;-function(x,y,b.init,tol=1e-8){
-  p &lt;- function(eta) return(exp(eta)/(1 + exp(eta)))
-  change &lt;- Inf
-  b.old &lt;- b.init
-  while(change &gt; tol) {
-    eta &lt;- x %*% b.old  # linear predictor
-    
-    w&lt;-diag(as.vector(p(eta)*(1-p(eta))),nrow=nrow(x),ncol=nrow(x)) 
-    
-    b.new&lt;-b.old + solve(t(x)%*%w%*%x) %*% t(x)%*%(y-p(eta))
-    
-    change &lt;- sqrt(sum((b.new - b.old)^2))
-    # print(b.new)
-    b.old &lt;- b.new
-  }
-  b.new
-}
-
-X &lt;- matrix(c(rep(1,n),atencion_temp,tratamiento), nrow=n,ncol=3)
-Y &lt;- enfermedad
-
-fisher_scoring(X,Y,c(1,2,3))</code></pre>
-<pre><code>##          [,1]
-## [1,] 1.242838
-## [2,] 3.201019
-## [3,] 2.453492</code></pre>
 </div>
 </div>
 
